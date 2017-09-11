@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pe.devpicon.android.androidtestapplication.data.model.Recipe;
 
@@ -18,6 +20,7 @@ import pe.devpicon.android.androidtestapplication.data.model.Recipe;
 public class RecipeStore {
 
     public final List<Recipe> recipes = new ArrayList<>();
+    private final Map<String, Recipe> map = new HashMap<>();
 
     public RecipeStore(Context context, String directory) {
         List<InputStream> streams = getAssetStreams(context.getAssets(), directory);
@@ -25,6 +28,7 @@ public class RecipeStore {
             Recipe recipe = Recipe.readFromStream(stream);
             if(recipe != null){
                 recipes.add(recipe);
+                map.put(recipe.id, recipe);
             }
         }
     }
@@ -55,5 +59,9 @@ public class RecipeStore {
         } catch (IOException e) {
             return new String[0];
         }
+    }
+
+    public Recipe getRecipe(String id) {
+        return map.get(id);
     }
 }
