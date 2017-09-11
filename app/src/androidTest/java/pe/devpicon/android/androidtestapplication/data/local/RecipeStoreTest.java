@@ -10,9 +10,6 @@ import pe.devpicon.android.androidtestapplication.data.model.Recipe;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by armando on 9/4/17.
- */
 public class RecipeStoreTest {
     @Test
     public void nullDirectory() {
@@ -22,6 +19,7 @@ public class RecipeStoreTest {
         assertNotNull(store.recipes);
         assertEquals(0, store.recipes.size());
     }
+
     @Test
     public void count() {
         Context context = InstrumentationRegistry.getTargetContext();
@@ -30,6 +28,7 @@ public class RecipeStoreTest {
         assertNotNull(store.recipes);
         assertEquals(4, store.recipes.size());
     }
+
     @Test
     public void getChocolatePudding() {
         Context context = InstrumentationRegistry.getTargetContext();

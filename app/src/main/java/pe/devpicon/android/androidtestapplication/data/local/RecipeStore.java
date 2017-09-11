@@ -13,40 +13,38 @@ import java.util.Map;
 
 import pe.devpicon.android.androidtestapplication.data.model.Recipe;
 
-/**
- * Created by armando on 9/4/17.
- */
-
 public class RecipeStore {
-
     public final List<Recipe> recipes = new ArrayList<>();
     private final Map<String, Recipe> map = new HashMap<>();
 
     public RecipeStore(Context context, String directory) {
-        List<InputStream> streams = getAssetStreams(context.getAssets(), directory);
-        for (InputStream stream: streams){
-            Recipe recipe = Recipe.readFromStream(stream);
-            if(recipe != null){
-                recipes.add(recipe);
-                map.put(recipe.id, recipe);
-            }
-        }
+      List<InputStream> streams = getAssetStreams(context.getAssets(), directory);
+
+      for (InputStream stream : streams) {
+          Recipe recipe = Recipe.readFromStream(stream);
+          if (recipe != null) {
+              recipes.add(recipe);
+              map.put(recipe.id, recipe);
+          }
+      }
     }
 
     private static List<InputStream> getAssetStreams(AssetManager manager, String directory) {
-        String[] filenames = getFilenames(manager, directory);
-        List<InputStream> streams = new ArrayList<>();
-        for (String filename : filenames) {
-            File file = new File(directory, filename);
-            try {
-                InputStream stream = manager.open(file.getPath());
-                if (stream != null) {
-                    streams.add(stream);
-                }
-            } catch (IOException e) {
-            }
-        }
-        return streams;
+      String[] filenames = getFilenames(manager, directory);
+
+      List<InputStream> streams = new ArrayList<>();
+      for (String filename : filenames) {
+          File file = new File(directory, filename);
+          try {
+              InputStream stream = manager.open(file.getPath());
+              if (stream != null) {
+                  streams.add(stream);
+              }
+          } catch (IOException e) {
+          }
+      }
+
+      return streams;
     }
 
     private static String[] getFilenames(AssetManager manager, String directory) {
